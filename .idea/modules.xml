@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/HlwOpsWebTool.iml" filepath="$PROJECT_DIR$/.idea/HlwOpsWebTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../WebOpsTool/.idea/WebOpsTool.iml" filepath="$PROJECT_DIR$/../WebOpsTool/.idea/WebOpsTool.iml" />
     </modules>
   </component>
 </project>
