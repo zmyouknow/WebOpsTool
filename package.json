@@ -1,0 +1,22 @@
+{
+  "name": "hlwopswebtool",
+  "version": "1.0.0",
+  "description": "The ops tool on web for HLW.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --debug",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electron",
+    "desktop",
+    "HLW",
+    "OpsTool"
+  ],
+  "author": "Zhang Hongchuan",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^2.0.2"
+  }
+}
