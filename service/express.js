@@ -10,22 +10,19 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var app = express();
 
-// test
-app.get('/', (req, res) => {
-    res.send("Hello Express");
-});
+app.use(express.static('../WeAdmin/'));
 
 // 登录请求
 app.post('/login', urlencodedParser, (req, res) => {
     var checkLogin = ssh2.CheckLogin;
 
-    var login_result = checkLogin({
-        "username": req.body.username,
-        "passsword": req.body.passsword,
-        "hostname": '45.78.23.15'
+    checkLogin({
+        username: req.body.username,
+        password: req.body.password,
+        host: '45.78.23.15'
+    },function (result) {
+        res.json(result);
     });
-
-    res.json(login_result);
 });
 
 // 监听12345端口
