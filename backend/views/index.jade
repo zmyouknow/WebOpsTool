@@ -1,5 +1,113 @@
 extends layout
 
+block css
+    link(rel="stylesheet", href="/css/font.css")
+    link(rel="stylesheet", href="/css/weadmin.css")
+    script(type="text/javascript", src="/lib/layui/layui.js", charset="utf-8")
+
 block content
-  h1= title
-  p Welcome to #{title}
+    <!-- 顶部开始 -->
+    div.container
+        div.logo
+            a(href="/") WebOpsTool v1.0
+
+        div.left_open
+            i(title="展开左侧栏", class="iconfont") &#xe699
+
+        ul(class="layui-nav left fast-add", lay-filter="")
+            li(class="layui-nav-item")
+                a(href="javascript:;") +新增
+                dl(class="layui-nav-child")
+                    // dd
+                    //    a(onclick="WeAdminShow('用户','')")
+                    //        i(class="iconfont") &#xe6b8;
+                    //        | 用户
+
+        ul(class="layui-nav right", lay-filter="")
+            li(class="layui-nav-item")
+                a(href="javascript:;") Admin
+                dl(class="layui-nav-child")
+                    <!-- 二级菜单 -->
+                    dd
+                        a(onclick="WeAdminShow('切换帐号','./login')") 切换帐号
+                    dd
+                        a(class="loginout" href="/login") 退出
+            li(class="layui-nav-item to-index")
+                a(href="/") 前台首页
+    <!-- 顶部结束 -->
+
+    <!-- 中部开始 -->
+    <!-- 左侧菜单开始 -->
+    div.left-nav
+        div#side-nav
+            ul#nav
+                li
+                    a(href="javascript:;")
+                        i(class="iconfont") &#xe726;
+                        cite 主机管理
+                        i(class="iconfont nav_right") &#xe697;
+                    ul(class="sub-menu")
+                        li
+                            a(_href="/host")
+                                i(class="iconfont") &#xe6a7;
+                                cite 主机列表
+                li
+                    a(href="javascript:;")
+                        i(class="iconfont") &#xe6ce;
+                        cite 交易曲线
+                        i(class="iconfont nav_right") &#xe697;
+                    ul(class="sub-menu")
+                        li
+                            a(_href="./pages/echarts/echarts1.html")
+                                i(class="iconfont") &#xe6a7;
+                                cite 拆线图
+    <!-- div(class="x-slide_left")</div> -->
+    <!-- 左侧菜单结束 -->
+
+    <!-- 右侧主体开始 -->
+    div.page-content
+        div(class="layui-tab tab", lay-filter="wenav_tab", id="WeTabTip", lay-allowclose="true")
+            ul(class="layui-tab-title", id="tabName")
+                li 首页
+            div.layui-tab-content
+                div(class="layui-tab-item layui-show")
+                    iframe(src='/welcome', frameborder="0", scrolling="yes", class="weIframe")
+    div.page-content-bg
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+
+    <!-- 底部开始 -->
+    div.footer
+        div.copyright Copyright ©2018 WeAdmin v1.0 All Rights Reserved
+    <!-- 底部结束 -->
+
+    <!--Tab菜单右键弹出菜单-->
+    ul(class="rightMenu", id="rightMenu")
+        li(data-type="fresh") 刷新
+        li(data-type="current") 关闭当前
+        li(data-type="other") 关闭其它
+        li(data-type="all") 关闭所有
+
+block js
+    script(type="text/javascript").
+        layui.config({
+            base: '/js/'
+            ,version: '101100'
+        }).use('admin');
+        layui.use(['jquery','admin'], function(){
+            var $ = layui.jquery;
+            $(function() {
+                var login = JSON.parse(localStorage.getItem("login"));
+                if(login) {
+                    if(login = 0) {
+                        window.location.href='/login';
+                        return false;
+                    } else{
+                        return false;
+                    }
+                }else{
+                    window.location.href='/login';
+                    return false;
+                }
+            });
+        });

@@ -1,0 +1,83 @@
+extends ../layout
+
+block css
+    link(rel='stylesheet', href='/css/font.css')
+    link(rel='stylesheet', href='/css/weadmin.css')
+
+block content
+    .weadmin-nav
+        span.layui-breadcrumb
+            a(href='') 首页
+            a(href='') 管理员管理
+            a
+                cite 权限管理
+        a.layui-btn.layui-btn-sm(style='line-height:1.6em;margin-top:3px;float:right', href='javascript:location.replace(location.href);', title='刷新')
+            i.layui-icon(style='line-height:30px') ဂ
+    .weadmin-body
+        .layui-row
+            form.layui-form.layui-col-md12.we-search.layui-form-pane
+                .layui-input-inline
+                    select(name='cateid')
+                        option 规则分类
+                        option 文章
+                        option 会员
+                        option 权限
+                .layui-input-inline
+                    select(name='contrller')
+                        option 请控制器
+                        option Index
+                        option Goods
+                        option Cate
+                .layui-input-inline
+                    select(name='action')
+                        option 请方法
+                        option add
+                        option login
+                        option checklogin
+                .layui-inline
+                    input.layui-input(placeholder='权限名', name='cate_name')
+                button.layui-btn(lay-submit='', lay-filter='sreach')
+                    i.layui-icon 
+                    | 增加
+        .weadmin-block
+            button.layui-btn.layui-btn-danger(onclick='delAll()')
+                i.layui-icon 
+                | 批量删除
+            span.fr(style='line-height:40px') 共有数据：88 条
+        table.layui-table
+            thead
+                tr
+                    th
+                        .layui-unselect.header.layui-form-checkbox(lay-skin='primary')
+                            i.layui-icon 
+                    th ID
+                    th 权限规则
+                    th 权限名称
+                    th 所属分类
+                    th 操作
+            tbody
+                tr
+                    td
+                        .layui-unselect.layui-form-checkbox(lay-skin='primary', data-id='2')
+                            i.layui-icon 
+                    td 1
+                    td admin/user/userlist
+                    td 会员列表
+                    td 会员相关
+                    td.td-manage
+                        a(title='编辑', onclick="WeAdminShow('编辑','../404.html')", href='javascript:;')
+                            i.layui-icon 
+                        a(title='删除', onclick="member_del(this,'要删除的id')", href='javascript:;')
+                            i.layui-icon 
+        .page
+            div
+                a.prev(href='') <<
+                a.num(href='') 1
+                span.current 2
+                a.num(href='') 3
+                a.num(href='') 489
+                a.next(href='') >>
+
+block js
+    script(src='/lib/layui/layui.js', charset='utf-8')
+    script(src='/js/eleDel.js', type='text/javascript', charset='utf-8')

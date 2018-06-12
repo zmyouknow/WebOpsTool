@@ -1,0 +1,100 @@
+extends ../layout
+
+block css
+    link(rel='stylesheet', href='/css/font.css')
+    link(rel='stylesheet', href='/css/weadmin.css')
+
+
+block content
+    .weadmin-body
+        form.layui-form
+            .layui-form-item
+                label.layui-form-label(for='username')
+                    span.we-red *
+                    | 登录名
+                .layui-input-inline
+                    input#username.layui-input(type='text', name='username', required='', lay-verify='required', autocomplete='off', value='admin')
+                .layui-form-mid.layui-word-aux
+                    span.we-red *
+                    | 将会成为您唯一的登入名
+            .layui-form-item
+                label.layui-form-label(for='phone')
+                    span.we-red *
+                    | 手机
+                .layui-input-inline
+                    input#phone.layui-input(type='text', value='18925139194', name='phone', required='', lay-verify='phone', autocomplete='off')
+                .layui-form-mid.layui-word-aux
+                    span.we-red *
+                    | 将会成为您唯一的登入名
+            .layui-form-item
+                label.layui-form-label(for='L_email')
+                    span.we-red *
+                    | 邮箱
+                .layui-input-inline
+                    input#L_email.layui-input(type='text', value='113664000@qq.com', name='email', required='', lay-verify='email', autocomplete='off')
+                .layui-form-mid.layui-word-aux
+                    span.we-red *
+            .layui-form-item
+                label.layui-form-label
+                    span.we-red *
+                    | 角色
+                .layui-input-block
+                    input(type='checkbox', name='like1[write]', lay-skin='primary', title='超级管理员', checked='')
+                    input(type='checkbox', name='like1[read]', lay-skin='primary', title='编辑人员')
+                    input(type='checkbox', name='like1[write]', lay-skin='primary', title='宣传人员')
+            .layui-form-item
+                label.layui-form-label(for='L_pass')
+                    span.we-red *
+                    | 密码
+                .layui-input-inline
+                    input#L_pass.layui-input(type='password', name='pass', required='', lay-verify='pass', autocomplete='off')
+                .layui-form-mid.layui-word-aux
+                    | 6到16个字符
+            .layui-form-item
+                label.layui-form-label(for='L_repass')
+                    span.we-red *
+                    | 确认密码
+                .layui-input-inline
+                    input#L_repass.layui-input(type='password', name='repass', required='', lay-verify='repass', autocomplete='off')
+            .layui-form-item
+                label.layui-form-label(for='L_repass')
+                button.layui-btn(lay-filter='add', lay-submit='')
+                    | 增加
+
+block js
+    script(src='/lib/layui/layui.js', charset='utf-8')
+    script(type='text/javascript').
+        layui.extend({
+            admin: '{/}../../js/admin'
+        });
+        layui.use(['form', 'layer', 'admin'], function () {
+            var form = layui.form,
+                admin = layui.admin,
+                layer = layui.layer;
+            //自定义验证规则
+            form.verify({
+                nikename: function (value) {
+                    if (value.length < 5) {
+                        return '昵称至少得5个字符啊';
+                    }
+                }
+                , pass: [/(.+){6,12}$/, '密码必须6到12位']
+                , repass: function (value) {
+                    if ($('#L_pass').val() != $('#L_repass').val()) {
+                        return '两次密码不一致';
+                    }
+                }
+            });
+            //监听提交
+            form.on('submit(add)', function (data) {
+                console.log(data);
+                //发异步，把数据提交给php
+                layer.alert("增加成功", {icon: 6}, function () {
+                    // 获得frame索引
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //关闭当前frame
+                    parent.layer.close(index);
+                });
+                return false;
+            });
+        });

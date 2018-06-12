@@ -1,0 +1,112 @@
+extends ../layout
+
+block css
+    link(rel='stylesheet', href='/css/font.css')
+    link(rel='stylesheet', href='/css/weadmin.css')
+
+block content
+    .weadmin-nav
+        span.layui-breadcrumb
+            a(href='/') 首页
+            a(href='/host') 主机管理
+            a
+                cite 主机列表
+        a.layui-btn.layui-btn-sm(style='line-height:1.6em;margin-top:3px;float:right', href='javascript:location.replace(location.href);', title='刷新')
+            i.layui-icon(style='line-height:30px') &#x1002;
+    #testText
+    .weadmin-body
+        .layui-row
+            form.layui-form.layui-col-md12.we-search
+                | 主机搜索：
+                .layui-inline
+                    input.layui-input(type='text', name='hostname', placeholder='请输入主机名')
+                    // input#start.layui-input(placeholder='开始日', name='start')
+                .layui-inline
+                    input.layui-input(type='text', name='ip', placeholder='请输入IP地址')
+                    // input#end.layui-input(placeholder='截止日', name='end')
+                .layui-inline
+                    input.layui-input(type='text', name='username', placeholder='请输入应用用户名')
+                button.layui-btn(lay-submit='', lay-filter='sreach')
+                    i.layui-icon 
+        .weadmin-block
+            button.layui-btn.layui-btn-danger(onclick='delAll()')
+                i.layui-icon 
+                | 批量删除
+            button.layui-btn(onclick="WeAdminShow('添加用户','/host/add',600,400)")
+                i.layui-icon 
+                | 添加
+            span.fr(style='line-height:40px') 共有数据：#{host_num} 条
+        table#memberList.layui-table
+            thead
+                tr
+                    th
+                        .layui-unselect.header.layui-form-checkbox(lay-skin='primary')
+                            i.layui-icon 
+                    th ID
+                    th 用户名
+                    th 性别
+                    th 手机
+                    th 邮箱
+                    th 地址
+                    th 加入时间
+                    th 状态
+                    th 操作
+            tbody
+                tr(data-id='1')
+                    td
+                        .layui-unselect.layui-form-checkbox(lay-skin='primary', data-id='1')
+                            i.layui-icon 
+                    td 1
+                    td 小张
+                    td 男
+                    td 17600000000
+                    td admin@mail.com
+                    td 北京市 海淀区
+                    td 2017-01-01 11:11:42
+                    td.td-status
+                        span.layui-btn.layui-btn-normal.layui-btn-xs 已启用
+                    td.td-manage
+                        a(onclick="member_stop(this,'10001')", href='javascript:;', title='启用')
+                            i.layui-icon 
+                        a(title='编辑', onclick="WeAdminEdit('编辑','/user/edit', 1, 600, 400)", href='javascript:;')
+                            i.layui-icon 
+                        a(onclick="WeAdminShow('修改密码','/user/password',600,400)", title='修改密码', href='javascript:;')
+                            i.layui-icon 
+                        a(title='删除', onclick="member_del(this,'要删除的id')", href='javascript:;')
+                            i.layui-icon 
+                tr(data-id='2')
+                    td
+                        .layui-unselect.layui-form-checkbox(lay-skin='primary', data-id='2')
+                            i.layui-icon 
+                    td 2
+                    td 小明
+                    td 女
+                    td 13000000000
+                    td admin@mail.com
+                    td 北京市 海淀区
+                    td 2017-01-01 11:11:42
+                    td.td-status
+                        span.layui-btn.layui-btn-normal.layui-btn-xs 已启用
+                    td.td-manage
+                        a(onclick="member_stop(this,'10001')", href='javascript:;', title='启用')
+                            i.layui-icon 
+                        a(title='编辑', onclick="WeAdminEdit('编辑','/user/edit', 2, 600, 400)", href='javascript:;')
+                            i.layui-icon 
+                        a(onclick="WeAdminShow('修改密码','/user/password',600,400)", title='修改密码', href='javascript:;')
+                            i.layui-icon 
+                        a(title='删除', onclick="member_del(this,'要删除的id')", href='javascript:;')
+                            i.layui-icon 
+        .page
+            div
+                a.prev(href='') <<
+                a.num(href='') 1
+                span.current 2
+                a.num(href='') 3
+                a.num(href='') 489
+                a.next(href='') >>
+
+
+block js
+    // <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    script(src='/lib/layui/layui.js', charset='utf-8')
+    script(src='/js/eleDel.js', type='text/javascript', charset='utf-8')
